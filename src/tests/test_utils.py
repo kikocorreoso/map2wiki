@@ -11,7 +11,7 @@ warnings.filterwarnings('always')
 path = os.path.abspath(os.path.join('..'))
 sys.path.append(path)
 
-from utils import get_address
+from utils import get_address, isolate_name
 
 class UtilsTest(unittest.TestCase):
     
@@ -53,6 +53,20 @@ class UtilsTest(unittest.TestCase):
         expected = {'URLError': 'Cannot connect to URL'}
         self.assertEqual(result, expected)
         
+    def test_isolate_name(self):
+        """Tests for `isolate_name` function."""
+        # Right now, tests are only for spanish names
+        names = ['Calle de la PyConES',
+                 'Avenida del Rey Kiko I',
+                 'Paseo de los Torpedos',
+                 'Vía de las PyLadies',
+                 'Calle de Python']
+        expected = ['pycones', 'rey kiko i', 'torpedos', 
+                    'pyladies', 'python']
+        for n, e in zip(names, expected):
+            result = isolate_name(n)
+            expected = e
+            self.assertEqual(result, expected)
 
 if __name__ == "__main__":
     unittest.main(verbosity = 2)
