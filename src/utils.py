@@ -1,4 +1,5 @@
-import urllib.request, json
+import urllib.request
+import json
 
 def get_address(lon, lat, service = "OSM"):
     """Get an address information from a geographical position using 
@@ -12,10 +13,11 @@ def get_address(lon, lat, service = "OSM"):
     
     :param lon: Longitude in degrees
     :param lat: Latitude in degrees
-    :param service: Service to use for the reverse geocoding.
-    :type arg1: int, float
-    :type arg2: int, float
-    :returns: data from a json response
+    :param service: Service to use for the reverse geocoding
+    :type lon: int, float
+    :type lat: int, float
+    :type service: str
+    :returns: a dict with data from a json response or with error info
     :rtype: dict
     
     :Example:
@@ -46,3 +48,47 @@ def get_address(lon, lat, service = "OSM"):
             return data
     except:
         return {'URLError': 'Cannot connect to URL'}
+
+def isolate_name(street):
+    """Enter the name of a street, road,..., and it tries to return a 
+    sanitized string to be used in the wikipedia request
+    
+    :param street: a string with the address
+    :type street: str
+    :returns: a string with the address name sanitized
+    :rtype: str
+    
+    :Example:
+    
+    >>> street = "Calle de Alfonso X"
+    >>> print(isolate_name(street))
+    alfonso x
+    >>> avenue = "Avenida del rey Jaime III"
+    >>> print(isolate_name(avenue))
+    rey jaime iii
+    >>> street = "Paseo de las delicias"
+    >>> print(isolate_name(street))
+    delicias
+    """
+    street = street.lower()
+    pre = ["alameda", "avenida", "bulevar", "calle", "camino", 
+           "carrera", "cuesta", "pasaje", "pasadizo", "paseo", "plaza", 
+           "rambla", "ronda", "travesia", "via"]
+    old = "áéíóúü"
+    new = "aeiouu"
+    for o, n in zip(old, new):
+        street = street.replace(o, n)
+    for prefij in pre:
+        if prefij in street:
+            street = street.replace(prefij + " ", "")
+            if street.startswith("del "):
+                street = street[4:]
+            if street.startswith("de la "):
+                street = street[6:]
+            if street.startswith("de los "):
+                street = street[7:]
+            if street.startswith("de las "):
+                street = street[7:]
+            if street.startswith("de "):
+                street = street[3:]
+    return street
