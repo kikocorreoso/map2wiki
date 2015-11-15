@@ -11,7 +11,10 @@ warnings.filterwarnings('always')
 path = os.path.abspath(os.path.join('..'))
 sys.path.append(path)
 
-from utils import get_address, isolate_name, get_wiki_info
+from utils import (get_address, 
+                   isolate_name, 
+                   get_wiki_info,
+                   parse_wiki_content)
 
 class UtilsTest(unittest.TestCase):
     
@@ -76,6 +79,13 @@ class UtilsTest(unittest.TestCase):
         self.assertEqual(result.title, 'Python')
         result = get_wiki_info('Javascripttttttt')
         self.assertTrue(isinstance(result, str))
+
+    def test_parse_wiki_content(self):
+        """Tests for the `get_wiki_info` function."""
+        result = get_wiki_info('Python')
+        parsed = parse_wiki_content(result)
+        self.assertTrue(isinstance(parsed, str))
+        self.assertEqual(parsed[:6], '<H1><A')
 
 if __name__ == "__main__":
     unittest.main(verbosity = 2)
