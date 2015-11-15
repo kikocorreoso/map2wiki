@@ -128,3 +128,35 @@ def get_wiki_info(title):
         msg += "<p>Hemos fallado miserablemente al intentar darte este servicio.</p>\n"
         msg += "<p>Vuelve al mapa e inténtalo de nuevo.</p>"
         return msg
+
+def parse_wiki_content(wikipage):
+    """Function to parse the content of the Wikipedia article in a 
+    simple way.
+    
+    Returns the article with some html tags.
+    
+    :param wikipage: The content of a wikipedia page as returned by
+        wikipedia.wikipedia.WikipediaPage
+    :type wikipage: str
+    :returns: a string with the content with custom html formatting
+    :rtype: str
+    
+    :Example:
+    
+    >>> page = get_wiki_info('Cervantes')
+    >>> print(parse_wiki_content(page)[0:107])
+    <H1><A href="https://es.wikipedia.org/wiki/Miguel_de_Cervantes" target="blank">Miguel de Cervantes</A></H1>
+    >>> print(parse_wiki_content(page)[-93:-1])
+    <P>Buscando a Miguel de Cervantes, monográfico en la Biblioteca Digital Memoriademadrid.</P>
+    """
+    result = """<H1><A href="{0}" target="blank">{1}</A></H1>\n"""
+    result = result.format(wikipage.url, wikipage.title)
+    for line in wikipage.content.split('\n'):
+        if line.startswith('=') and line.endswith('='):
+            h = int(line.count('=') / 2)
+            line = line.replace("=", "")
+            line = line.replace("Editar", "") # This is hard coded for spanish. modify for internacionalisation
+            result += "<H{0}>{1}</H{0}>\n".format(h, line)
+        else:
+            result += "    <P>{0}</P>\n".format(line)
+    return result
