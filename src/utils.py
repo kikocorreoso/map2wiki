@@ -1,6 +1,12 @@
 import urllib.request
 import json
 
+import wikipedia as wp
+# Right now, only spanish is supported in this proof of concept.
+# If there are interests for other languages this shouldn't be hard
+# coded
+wp.set_lang("es")
+
 def get_address(lon, lat, service = "OSM"):
     """Get an address information from a geographical position using 
     OpenStreetMap Nominatim web service 
@@ -92,3 +98,33 @@ def isolate_name(street):
             if street.startswith("de "):
                 street = street[3:]
     return street
+    
+def get_wiki_info(title):
+    """This function retrieves information from the Wikipedia API.
+    
+    :param title: A title of a possible wikipedia page
+    :type title: str
+    :returns: an object with information of the retrieved page
+    :rtype: wikipedia.wikipedia.WikipediaPage object
+    
+    :Example:
+    
+    >>> result = get_wiki_info('Cervantes')
+    >>> print(result.url)
+    https://es.wikipedia.org/wiki/Miguel_de_Cervantes
+    >>> print(result.title)
+    Miguel de Cervantes
+    >>> print(type(result))
+    <class 'wikipedia.wikipedia.WikipediaPage'>
+    >>> result = get_wiki_info('Cervantesssssssssssss')
+    >>> print(type(result))
+    <class 'str'>
+    """
+    try:
+        info = wp.page(title)
+        return info
+    except:
+        msg = "<H2>¡Lo sentimos!</H2>\n"
+        msg += "<p>Hemos fallado miserablemente al intentar darte este servicio.</p>\n"
+        msg += "<p>Vuelve al mapa e inténtalo de nuevo.</p>"
+        return msg
