@@ -1,0 +1,54 @@
+<html>
+
+ <head>
+     <style>
+#json {
+	font-family: "Courier New", Courier, monospace;
+	font-size: 12px;
+	margin: 1%;
+	padding: 10px;
+	background-color: #ccc;
+	border-radius: 10px;
+	position: relative;
+}
+
+#result {
+	font-family: Verdana, Geneva, sans-serif;
+	margin: 1%;
+	padding: 10px;
+	background-color: #ddd;
+	position: relative;
+}
+
+#header {
+	margin: 1%;
+}
+     </style>
+ </head>
+
+ <body>
+	 <div id="header">
+		 |
+		 <a href="/">Go to map</a> 
+		 | 
+		 <a href="/index?lon={{ address['lon'] }}&lat={{ address['lat'] }}&zoom=18">Go to latest location</a> 
+		 |
+		 <a href="/about">About</a> 
+		 |
+	 </div>
+  
+     <div id="content">
+		 
+		 <div id="json">
+			 {{ address }}
+		 </div>
+		 
+		 <div id="result">
+			 {{ result | safe }}
+		 </div>
+		 
+     </div>
+
+ </body>
+
+</html>

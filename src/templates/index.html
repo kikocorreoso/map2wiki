@@ -1,0 +1,131 @@
+<html>
+
+ <head>
+     <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+     <script src="http://brython.info/src/brython_dist.js"></script>
+     <style>
+body {font-family: 'Open Sans', sans-serif;}
+
+html, body {
+    width:100%;  
+    height:100%;
+    margin:0;
+}
+
+#mapdiv {
+    width:100%;
+    height:100%;
+    position: absolute;
+}
+
+#search {
+    width: 50%;
+    left: 0px;
+    font-size: 20px;
+    position: fixed;
+    bottom: 0px;
+}
+
+#getpos {
+    width: 50%;
+    right: 0px;
+    font-size: 20px;
+    position: fixed;
+    bottom: 0px;
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+     </style>
+ </head>
+
+ <body onload="brython(1)">
+  <div id="container">
+   <div id="mapdiv"></div>
+   <form method="POST" action="/wiki">
+    <input id="search" type="submit" name="submit" value="Search address history">
+    <button id="getpos" type="button">Get my position</button>
+    <input id="inputlon" type="hidden" name=inputlon value=-3.7035> 
+    <input id="inputlat" type="hidden" name=inputlat value=40.4171> 
+   </form>
+  </div>
+
+ <script type="text/python">
+####################################################
+# Script to manage the openlayers map using Brython
+####################################################
+from javascript import JSObject, JSConstructor
+from browser import document, window, alert
+
+# Create the map and an OpenStreetMaps layer
+ol = window.OpenLayers
+layer = JSConstructor(ol.Layer.OSM)()
+map = JSConstructor(ol.Map)("mapdiv")
+map.addLayer(layer)
+
+# Initial map settings with location zoom and an initial markers layer
+# with a marker in the center of the map
+proj4326 = JSConstructor(ol.Projection)("EPSG:4326")
+lon_lat = JSConstructor(ol.LonLat)({{ lon }},{{ lat }}).transform(
+    proj4326, map.getProjectionObject() 
+    )
+zoom = {{ zoom }}
+map.setCenter(lon_lat, zoom)
+markers = JSConstructor(ol.Layer.Markers)("Markers")
+map.addLayer(markers)
+marker = JSConstructor(ol.Marker)(lon_lat)
+markers.addMarker(marker)
+
+def get_auto_location(ev):
+    
+    def success(xy):
+        global marker
+        pos = {'lon': xy.coords.longitude,
+               'lat': xy.coords.latitude}
+        lon_lat = JSConstructor(ol.LonLat)(pos['lon'], pos['lat']).transform(
+            proj4326, map.getProjectionObject() 
+            )
+        markers.removeMarker(marker)
+        marker = JSConstructor(ol.Marker)(lon_lat)
+        markers.addMarker(marker)
+        zoom = 18
+        map.setCenter(lon_lat, zoom)
+        
+    
+    def error(xy):
+        alert('Location could not be retrieved')
+    
+    options = {'enableHighAccuracy': True, 'timeout': 5000, 'maximumAge': 0}
+    xy = window.navigator.geolocation.getCurrentPosition(
+        success, error, options
+        )
+
+def redraw_marker(ev):
+    global marker
+    coords = map.getCenter()
+    markers.removeMarker(marker)
+    marker = JSConstructor(ol.Marker)(coords)
+    markers.addMarker(marker)
+
+layer.events.register("loadend", layer, redraw_marker) 
+
+def search(ev):
+    global map
+    coords = map.getCenter().transform(
+                 map.getProjectionObject(),proj4326
+             )
+    document['inputlon'].value = coords.lon
+    document['inputlat'].value = coords.lat
+
+document['search'].bind('click', search)
+document['getpos'].bind('click', get_auto_location)
+
+ </script>
+
+
+ </body>
+
+</html>
