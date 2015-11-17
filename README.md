@@ -12,11 +12,11 @@ Alternatively, you can click on **Get my position** and let the browser geolocal
 Example for *[Calle de Juan Bravo, Madrid,
 Spain](http://map2wiki.runbear.webfactional.com/index?lon=-3.68482&lat=40.43294&zoom=18)*.
 
-[Mapa Juan Bravo]
+![Mapa Juan Bravo](https://raw.githubusercontent.com/kikocorreoso/map2wiki/master/img/JuanBravoMap.png)
 
 If you click on the left button (**Search address history**), you should go to a page like this one:
 
-[Resultado Juan Bravo]
+![Resultado Juan Bravo](https://raw.githubusercontent.com/kikocorreoso/map2wiki/master/img/JuanBravoWiki.png)
 
 There you have the result of the request to the [OpenStreetMap nominatim API] in json format, 
 and the request obtained from the wikipedia API.
@@ -30,7 +30,7 @@ Why not open your browser and go directly to the Wikipedia? Because this way I d
 API](https://www.mediawiki.org/wiki/API:Main_page), [Flask](http://flask.pocoo.org/),
 [Openlayers](http://openlayers.org/), [Brython](http://brython.info/), CSS hell,...
 
-[css hell]
+![css hell](https://raw.githubusercontent.com/kikocorreoso/map2wiki/master/img/CSSHell.gif)
 
 ## TODO
 
