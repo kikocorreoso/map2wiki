@@ -4,7 +4,7 @@ Simple flask app to obtain wikipedia information from an address. You can see a 
 
 ## How to use the demo
 
-[!mapa](https://raw.githubusercontent.com/kikocorreoso/map2wiki/master/img/Home.png)
+![mapa](https://raw.githubusercontent.com/kikocorreoso/map2wiki/master/img/Home.png)
 
 Center the map on a street, avenue, square,..., and click on **Search address history**. 
 Alternatively, you can click on **Get my position** and let the browser geolocalise your position.
