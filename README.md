@@ -1,6 +1,6 @@
 # map2wiki
 
-Simple flask app to obtain wikipedia information from an address. You can see a demo [here](http://map2wiki.runbear.webfactional.com/).
+Simple flask+Openlayers+Brython app to obtain wikipedia information from an address in a OSM map. You can see a demo [here](http://map2wiki.runbear.webfactional.com/).
 
 ## How to use the demo
 
