@@ -50,9 +50,19 @@ the error and fix it.
 
 ## How to run locally
 
+Instructions to run it on *nix using a virtualenv and Python >= 3.3:
+
 `git clone https://github.com/kikocorreoso/map2wiki.git`
 
-`cd map2wiki/src`
+`cd map2wiki/`
+
+`python -m venv env # I assume you are using Python 3, if not, you should!!`
+
+`. env/bin/activate`
+
+`pip install -r requirements.txt`
+
+`cd src/`
 
 `python m2w_app.py`
 
