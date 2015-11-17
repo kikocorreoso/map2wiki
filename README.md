@@ -37,10 +37,11 @@ API](https://www.mediawiki.org/wiki/API:Main_page), [Flask](http://flask.pocoo.o
 * Right now, it works only for addresses and results in spanish. If you want to see other languages working, 
 please, [open an issue](https://github.com/kikocorreoso/map2wiki/issues) with the language you want to 
 include and a complete list of possible *types* of addresses. For example, in english it could be 
-*street*, *avenue*, *square*,... In spanish I am using this list *alameda, avenida, bulevar, calle, camino, 
+*street*, *avenue*, *square*,... In spanish I am using the following list: *alameda, avenida, bulevar, calle, camino, 
 carrera, cuesta, pasaje, pasadizo, paseo, plaza, rambla, ronda, travesia, via*.
 * Fix some stuff to make it more Flask way (`url_for`, static folder,...).
 * Include a minified version of brython in the distribution.
+* Add tests for the Flask part.
 * ...
 
 ## Issues
