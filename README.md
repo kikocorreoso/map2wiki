@@ -18,7 +18,7 @@ If you click on the left button (**Search address history**), you should go to a
 
 ![Resultado Juan Bravo](https://raw.githubusercontent.com/kikocorreoso/map2wiki/master/img/JuanBravoWiki.png)
 
-There you have the result of the request to the [OpenStreetMap nominatim API] in json format, 
+There you have the result of the request to the [OpenStreetMap nominatim API](http://wiki.openstreetmap.org/wiki/Nominatim) in json format, 
 and the request obtained from the wikipedia API.
 
 ## Motivation
