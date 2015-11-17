@@ -72,3 +72,10 @@ If you want to deploy the app somewhere edit the [last line on m2w_app.py](https
 use the `debug` mode:
 
 Change `    app.run(debug = True)` to `    app.run()`
+
+## Dependencies
+
+* [Flask](http://flask.pocoo.org/)
+* [Wikipedia python package](https://pypi.python.org/pypi/wikipedia/1.4.0)
+
+Thanks to the developers of the packages listed above!!
