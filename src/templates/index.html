@@ -18,20 +18,19 @@ html, body {
     position: absolute;
 }
 
-#search {
-    width: 50%;
-    left: 0px;
+.button {
+	width: 50%;
     font-size: 20px;
     position: fixed;
     bottom: 0px;
 }
 
+#search {
+    left: 0px;
+}
+
 #getpos {
-    width: 50%;
     right: 0px;
-    font-size: 20px;
-    position: fixed;
-    bottom: 0px;
 }
 
 #container {
@@ -39,15 +38,46 @@ html, body {
     height: 100%;
     position: absolute;
 }
+
+#lang {
+	position: fixed;
+	top: 2px;
+	right: 2px;
+}
+
+#link {
+	position: fixed;
+	right: 50px;
+	top: 5px;
+	color: #000;
+}
+#link:link {
+	border-style: solid;
+    border-width : 1px 1px 1px 1px;
+    text-decoration : none;
+    padding : 2px;
+    border-color : #ccc;
+    background-color: #ccc;
+}
+#link:hover { 
+	border-color: #000; 
+	color: blue;
+}
      </style>
  </head>
 
  <body onload="brython(1)">
   <div id="container">
    <div id="mapdiv"></div>
+   <a id="link" href="/about">About</a>
    <form method="POST" action="/wiki">
-    <input id="search" type="submit" name="submit" value="Search address history">
-    <button id="getpos" type="button">Get my position</button>
+	<select id="lang">
+	 <option value="en">EN</option>
+	 <option value="es">ES</option>
+	 <option value="fr">FR</option>
+	</select>
+    <input id="search" class="button" type="submit" name="submit" value="Search address history">
+    <button id="getpos" class="button" type="button">Get my position</button>
     <input id="inputlon" type="hidden" name=inputlon value=-3.7035> 
     <input id="inputlat" type="hidden" name=inputlat value=40.4171> 
    </form>
@@ -60,6 +90,9 @@ html, body {
 from javascript import JSObject, JSConstructor
 from browser import document, window, alert
 
+######################
+## Openlayers stuff ##
+######################
 # Create the map and an OpenStreetMap layer
 ol = window.OpenLayers
 layer = JSConstructor(ol.Layer.OSM)()
@@ -100,8 +133,8 @@ def get_auto_location(ev):
     
     options = {'enableHighAccuracy': True, 'timeout': 5000, 'maximumAge': 0}
     xy = window.navigator.geolocation.getCurrentPosition(
-        success, error, options
-        )
+             success, error, options
+         )
 
 def redraw_marker(ev):
     global marker
@@ -110,7 +143,8 @@ def redraw_marker(ev):
     marker = JSConstructor(ol.Marker)(coords)
     markers.addMarker(marker)
 
-layer.events.register("loadend", layer, redraw_marker) 
+layer.events.register("move", layer, redraw_marker) 
+layer.events.register("moveend", layer, redraw_marker) 
 
 def search(ev):
     global map
@@ -122,7 +156,15 @@ def search(ev):
 
 document['search'].bind('click', search)
 document['getpos'].bind('click', get_auto_location)
+#############################
+## End of Openlayers stuff ##
+#############################
 
+##############################################
+## Infer the user language from the browser ##
+##############################################
+lang = window.navigator.language[0:2]
+document['lang'].value = lang
  </script>
 
 
