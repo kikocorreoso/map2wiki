@@ -2,10 +2,7 @@ import urllib.request
 import json
 
 import wikipedia as wp
-# Right now, only spanish is supported in this proof of concept.
-# If there are interests for other languages this shouldn't be hard
-# coded
-wp.set_lang("es")
+from flask.ext.babel import gettext
 
 def get_address(lon, lat, service = "OSM"):
     """Get an address information from a geographical position using 
@@ -99,7 +96,7 @@ def isolate_name(street):
                 street = street[3:]
     return street
     
-def get_wiki_info(title):
+def get_wiki_info(title, lang):
     """This function retrieves information from the Wikipedia API.
     
     :param title: A title of a possible wikipedia page
@@ -120,14 +117,15 @@ def get_wiki_info(title):
     >>> print(type(result))
     <class 'str'>
     """
+    wp.set_lang(lang)
     try:
         info = wp.page(title)
         return info
     except:
-        msg = "<H2>¡Lo sentimos!</H2>\n"
-        msg += "<p>Hemos fallado miserablemente al intentar darte este servicio.</p>\n"
-        msg += "<p>Vuelve al mapa e inténtalo de nuevo.</p>"
-        return msg
+        msg = "<H2>We are sorry!</H2>\n"
+        msg += "<p>We failed to offer you this service.</p>\n"
+        msg += "<p>Return to the map and try ot again.</p>"
+        return gettext(msg)
 
 def parse_wiki_content(wikipage):
     """Function to parse the content of the Wikipedia article in a 
@@ -154,8 +152,7 @@ def parse_wiki_content(wikipage):
     for line in wikipage.content.split('\n'):
         if line.startswith('=') and line.endswith('='):
             h = int(line.count('=') / 2)
-            line = line.replace("=", "")
-            line = line.replace("Editar", "") # This is hard coded for spanish. modify for internacionalisation
+            line = line.replace("=", "") 
             result += "<H{0}>{1}</H{0}>\n".format(h, line)
         else:
             result += "    <P>{0}</P>\n".format(line)

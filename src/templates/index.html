@@ -39,12 +39,6 @@ html, body {
     position: absolute;
 }
 
-#lang {
-	position: fixed;
-	top: 2px;
-	right: 2px;
-}
-
 #link {
 	position: fixed;
 	right: 50px;
@@ -69,15 +63,10 @@ html, body {
  <body onload="brython(1)">
   <div id="container">
    <div id="mapdiv"></div>
-   <a id="link" href="/about">About</a>
-   <form method="POST" action="/wiki">
-	<select id="lang">
-	 <option value="en">EN</option>
-	 <option value="es">ES</option>
-	 <option value="fr">FR</option>
-	</select>
-    <input id="search" class="button" type="submit" name="submit" value="Search address history">
-    <button id="getpos" class="button" type="button">Get my position</button>
+   <a id="link" href="{{ url_for('about') }}">{{ _('About') }}</a>
+   <form method="POST" action="{{ url_for('wiki') }}">
+    <input id="search" class="button" type="submit" name="submit" value="{{ _('Search wiki') }}">
+    <button id="getpos" class="button" type="button">{{ _('Get my position') }}</button>
     <input id="inputlon" type="hidden" name=inputlon value=-3.7035> 
     <input id="inputlat" type="hidden" name=inputlat value=40.4171> 
    </form>
@@ -160,11 +149,6 @@ document['getpos'].bind('click', get_auto_location)
 ## End of Openlayers stuff ##
 #############################
 
-##############################################
-## Infer the user language from the browser ##
-##############################################
-lang = window.navigator.language[0:2]
-document['lang'].value = lang
  </script>
 
 

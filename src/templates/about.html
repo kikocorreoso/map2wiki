@@ -20,25 +20,22 @@
  <body>
 	 <div id="header">
 		 |
-		 <a href="/">Go to map</a> 
+		 <a href="{{ url_for('index') }}">{{ _('Go to map') }}</a> 
 		 | 
-		 <a href="/about">About</a> 
+		 <a href="{{ url_for('about') }}">{{ _('About') }}</a> 
 		 |
 	 </div>
   
      <div id="content">
 		 
-		 <h1>Motivation.</h1>
-		 <p>The other day I was waiting for someone in a street and in the meanwhile 
-		    I thought -"I don't know too much about the person who is giving the name
-		    to this street. It would be great to geolocalize my position, using, for instance, 
-		    my smartphone and easily get information about the person from the wikipedia."</p>
-		<h1>Code.</h1>
-		<p>The app is coded using <a href="http://openlayers.org/" target="blank">Openlayers</a>, 
-		<a href="http://brython.info/" target="blank">brython</a> and 
-		<a href="http://flask.pocoo.org/" target="blank">flask</a>.</p>
-		<p>The repo is located <a href="https://github.com/kikocorreoso/map2wiki" target="blank">here</a> 
-		   in case you want to report an issue, request a new feature, fork it or say hello.</p>
+		 <H1>{{ _('Instructions') }}</H1>
+		 <p>{{ _('You can navigate the map to go to the location you want.') }}</p>
+		 <p>{{ _('When the marker is located over a street you want to know more info click on the <b>Search wiki</b> button.') }}</p>
+		 <p>{{ _('Alternatively, you can click on the <b>Get my position</b> button to get the location from your browser and, later, click on the <b>Search wiki</b> button.') }}</p>
+		 <p>{{ _('The app will try to provide you with some information extracted from the wikipedia.') }}</p>
+		 <H1><a href="https://github.com/kikocorreoso/map2wiki#motivation" target="blank">{{ _('Motivation') }}</a></H1>
+		 <p>{{ _('The other day I was waiting for a friend and during that time I thought -I have no idea who is Juan Bravo-.') }}</p>
+		 <p>{{ _('Why not open your browser and go directly to the Wikipedia? Because this way I do not learn about Nominatim, Wikipedia API, Flask, Openlayers, Brython, CSS hell,...') }}</p>
 		 
      </div>
 

@@ -1,16 +1,23 @@
 from flask import Flask, render_template, request
+from flask.ext.babel import Babel, gettext
 
 from utils import (get_address, 
                    isolate_name, 
                    get_wiki_info,
                    parse_wiki_content)
+from config import LANGUAGES
 
 app = Flask(__name__)
+babel = Babel(app)
 
+@babel.localeselector
+def get_locale():
+    return 'es' #return request.accept_languages.best_match(LANGUAGES.keys())
 
 @app.route('/')
 @app.route('/index')
 def index():
+    print(get_locale())
     lon = -3.7035
     lat = 40.4171
     zoom = 4
@@ -31,6 +38,10 @@ def about():
 
 @app.route('/wiki', methods = ['POST'])
 def wiki():
+    lang = get_locale()
+    print(lang)
+    if lang not in ['en','es','fr']:
+        lang = 'en'
     if request.method == 'POST':
         address = get_address(
             request.form['inputlon'],
@@ -38,7 +49,7 @@ def wiki():
         )
         if address['address']['road']:
             title = isolate_name(address['address']['road'])
-            article = get_wiki_info(title)
+            article = get_wiki_info(title, lang)
             if isinstance(article, str):
                 result = article
             else:
@@ -52,11 +63,16 @@ def wiki():
                                    address = address)
         elif address['UrlError']:
             return render_template("wiki.html",
-                                   result = "<h2>It seems we cannot connect to some service.</h2>",
+                                   result = gettext("<h2>It seems we "
+                                                    "cannot connect to "
+                                                    "some service."
+                                                    "</h2>"),
                                    address = address)
         else:
             return render_template("wiki.html",
-                                   result = "<h2>We don't know what happened.</h2>",
+                                   result = gettext("<h2>We don't know "
+                                                    "what happened."
+                                                    "</h2>"),
                                    address = address)
     
     

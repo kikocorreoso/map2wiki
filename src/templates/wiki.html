@@ -29,11 +29,11 @@
  <body>
 	 <div id="header">
 		 |
-		 <a href="/">Go to map</a> 
+		 <a href="{{ url_for('index') }}">{{ _('Go to map') }}</a> 
 		 | 
-		 <a href="/index?lon={{ address['lon'] }}&lat={{ address['lat'] }}&zoom=18">Go to latest location</a> 
+		 <a href="/index?lon={{ address['lon'] }}&lat={{ address['lat'] }}&zoom=18">{{ _('Go to latest location') }}</a> 
 		 |
-		 <a href="/about">About</a> 
+		 <a href="{{ url_for('about') }}">{{ _('About') }}</a> 
 		 |
 	 </div>
   
