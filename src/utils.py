@@ -118,14 +118,16 @@ def get_wiki_info(title, lang):
     <class 'str'>
     """
     wp.set_lang(lang)
+    
     try:
         info = wp.page(title)
         return info
     except:
         msg = "<H2>We are sorry!</H2>\n"
         msg += "<p>We failed to offer you this service.</p>\n"
-        msg += "<p>Return to the map and try ot again.</p>"
-        return gettext(msg)
+        msg += "<p>Return to the map and try it again.</p>"
+        result = gettext(msg)
+        return result
 
 def parse_wiki_content(wikipage):
     """Function to parse the content of the Wikipedia article in a 
@@ -153,6 +155,7 @@ def parse_wiki_content(wikipage):
         if line.startswith('=') and line.endswith('='):
             h = int(line.count('=') / 2)
             line = line.replace("=", "") 
+            line = line.replace(gettext("Edit"), "") 
             result += "<H{0}>{1}</H{0}>\n".format(h, line)
         else:
             result += "    <P>{0}</P>\n".format(line)

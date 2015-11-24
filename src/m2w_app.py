@@ -12,7 +12,7 @@ babel = Babel(app)
 
 @babel.localeselector
 def get_locale():
-    return 'es' #return request.accept_languages.best_match(LANGUAGES.keys())
+    return 'fr' #return request.accept_languages.best_match(LANGUAGES.keys())
 
 @app.route('/')
 @app.route('/index')
@@ -47,8 +47,18 @@ def wiki():
             request.form['inputlon'],
             request.form['inputlat']
         )
-        if address['address']['road']:
+        if 'road' in address['address'].keys():
             title = isolate_name(address['address']['road'])
+            article = get_wiki_info(title, lang)
+            if isinstance(article, str):
+                result = article
+            else:
+                result = parse_wiki_content(article)
+            return render_template("wiki.html", 
+                                   result = result,
+                                   address = address)
+        elif 'pedestrian' in address['address'].keys():
+            title = isolate_name(address['address']['pedestrian'])
             article = get_wiki_info(title, lang)
             if isinstance(article, str):
                 result = article
@@ -77,4 +87,4 @@ def wiki():
     
     
 if __name__ == '__main__':
-    app.run(debug = True)
+    app.run(debug = True, port = 8001)
