@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2015-11-24 00:41+0100\n"
-"PO-Revision-Date: 2015-11-24 00:11+0100\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2015-11-24 13:35+0100\n"
 "Language: fr\n"
 "Language-Team: fr <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.1.1\n"
+"Last-Translator: \n"
+"X-Generator: Poedit 1.8.6\n"
 
 #: src/m2w_app.py:66
 msgid "<h2>It seems we cannot connect to some service.</h2>"
@@ -37,47 +38,59 @@ msgstr "A propos"
 
 #: src/templates/about.html:31
 msgid "Instructions"
-msgstr ""
+msgstr "Instructions"
 
 #: src/templates/about.html:32
 msgid "You can navigate the map to go to the location you want."
 msgstr ""
+"Vous pouvez naviguer sur la carte pour aller à l'emplacement que vous voulez."
 
 #: src/templates/about.html:33
 msgid ""
-"When the marker is located over a street you want to know more info click"
-" on the <b>Search wiki</b> button."
+"When the marker is located over a street you want to know more info click on "
+"the <b>Search wiki</b> button."
 msgstr ""
+"Lorsque le marché est situé sur une rue, vous voulez en savoir plus "
+"d'informations cliquez sur le <b> Recherche wiki </ b>."
 
 #: src/templates/about.html:34
 msgid ""
-"Alternatively, you can click on the <b>Get my position</b> button to get "
-"the location from your browser and, later, click on the <b>Search "
-"wiki</b> button."
+"Alternatively, you can click on the <b>Get my position</b> button to get the "
+"location from your browser and, later, click on the <b>Search wiki</b> button."
 msgstr ""
+"Alternativement, vous pouvez cliquer sur le <b> Obtenir ma position </ b> "
+"pour obtenir l'emplacement de votre navigateur et, plus tard, cliquez sur le "
+"<b> Recherche wiki </ b>."
 
 #: src/templates/about.html:35
 msgid ""
 "The app will try to provide you with some information extracted from the "
 "wikipedia."
 msgstr ""
+"L'application va essayer de vous donner quelques informations extraites du "
+"wikipedia."
 
 #: src/templates/about.html:36
 msgid "Motivation"
-msgstr ""
+msgstr "Motivation"
 
 #: src/templates/about.html:37
 msgid ""
-"The other day I was waiting for a friend and during that time I thought "
-"-I have no idea who is Juan Bravo-."
+"The other day I was waiting for a friend and during that time I thought -I "
+"have no idea who is Juan Bravo-."
 msgstr ""
+"L'autre jour, je l'attendais pour un ami et pendant ce temps je pensais -Je "
+"ne sais pas qui est Juan Bravo-."
 
 #: src/templates/about.html:38
 msgid ""
-"Why not open your browser and go directly to the Wikipedia? Because this "
-"way I do not learn about Nominatim, Wikipedia API, Flask, Openlayers, "
-"Brython, CSS hell,..."
+"Why not open your browser and go directly to the Wikipedia? Because this way "
+"I do not learn about Nominatim, Wikipedia API, Flask, Openlayers, Brython, "
+"CSS hell,..."
 msgstr ""
+"Pourquoi ne pas ouvrir votre navigateur et allez directement à la Wikipedia? "
+"Parce que de cette façon que je ne apprennent Nominatim, API Wikipedia, "
+"Flask, OpenLayers, Brython, CSS enfer, ..."
 
 #: src/templates/index.html:68
 msgid "Search wiki"
@@ -90,7 +103,3 @@ msgstr "Obtenir ma position"
 #: src/templates/wiki.html:34
 msgid "Go to latest location"
 msgstr "Allez à la dernière localisation"
-
-#~ msgid "Edit"
-#~ msgstr ""
-
