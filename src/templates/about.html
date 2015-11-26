@@ -20,23 +20,25 @@
  <body>
 	 <div id="header">
 		 |
-		 <a href="{{ url_for('index') }}">{{ _('Go to map') }}</a> 
+		 <a href="{{ url_for('index') }}">Ir al mapa inicial</a> 
 		 | 
-		 <a href="{{ url_for('about') }}">{{ _('About') }}</a> 
+		 <a href="{{ url_for('about') }}">Acerca de la aplicación</a> 
 		 |
 	 </div>
   
      <div id="content">
 		 
-		 <H1>{{ _('Instructions') }}</H1>
-		 <p>{{ _('You can navigate the map to go to the location you want.') }}</p>
-		 <p>{{ _('When the marker is located over a street you want to know more info click on the <b>Search wiki</b> button.') }}</p>
-		 <p>{{ _('Alternatively, you can click on the <b>Get my position</b> button to get the location from your browser and, later, click on the <b>Search wiki</b> button.') }}</p>
-		 <p>{{ _('The app will try to provide you with some information extracted from the wikipedia.') }}</p>
-		 <H1><a href="https://github.com/kikocorreoso/map2wiki#motivation" target="blank">{{ _('Motivation') }}</a></H1>
-		 <p>{{ _('The other day I was waiting for a friend and during that time I thought -I have no idea who is Juan Bravo-.') }}</p>
-		 <p>{{ _('Why not open your browser and go directly to the Wikipedia? Because this way I do not learn about Nominatim, Wikipedia API, Flask, Openlayers, Brython, CSS hell,...') }}</p>
-		 
+		 <H1>Instrucciones</H1>
+		 <p>Puedes navegar por el mapa hasta la posición que desees.
+		 Lo suyo es que vauas hasta una calle que tenga un nombre con ciertos tintes históricos para poder obtener información sobre la misma.</p>
+		 <p>Cuando el marcador esté localizado sobre la dirección sobre la que quieras conocer la información del personaje que le da nombre puedes pulsar sobre el botón <b>Buscar en Wikipedia</b>.</p>
+		 <p>De forma alternativa puedes pulsar en el botón <b>Geolocalízame</b> y el navegador intentará obtener tu posición y geolocalizarte. Si ha sido posible geolocalizarte puedes pulsar en el botón <b>Buscar en Wikipedia</b>.</p>
+		 <p>La aplicación intentará encontrar información en la Wikipedia a partir del nombre de la calle</p>
+		 <H1><a href="https://github.com/kikocorreoso/map2wiki#motivation" target="blank">Motivación</a></H1>
+		 <p>El otro día, estaba esperando a un amigo en Juan Bravo (Madrid) y mientras esperaba me dio por pensar -No tengo ni idea de quien es Juan Bravo-... Y de aquellos polvos estos lodos.</p>
+		 <p>-¿Por qué no abrir el navegador e ir directamente a la Wikipedia?- pensará el inteligente visitante -por que de esa forma no hubiera aprendido nada sobre Nominatim, geocodificación reversa, la API de la Wikipedia, Flask, Openlayers, Brython, el infierno CSS,...-.</p>
+		 <H1>Internacionalización</H1>
+		 <p>La aplicación la internacionalicé usando Babel y Flask-Babel. Son una delicia de usar. Una vez internacionlizado me di cuenta de que las direcciones en los países anglosajones son extremadamente aburridas, la quinta avenida, calle Oxford,... No daba mucha chicha para el inglés. Lo hice, en parte, para francés y eso sería más interesante, pero como no tengo más tiempo y esto solo es una aplicación de prueba simple sin BBDD detrás no le he dedicado más tiempo al tema y he desecho algunos commits.</p>
      </div>
 
  </body>

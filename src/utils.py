@@ -1,8 +1,8 @@
 import urllib.request
 import json
+from collections import OrderedDict
 
 import wikipedia as wp
-from flask.ext.babel import gettext
 
 def get_address(lon, lat, service = "OSM"):
     """Get an address information from a geographical position using 
@@ -44,7 +44,7 @@ def get_address(lon, lat, service = "OSM"):
         url = "http://example.com"
     try:
         resp = urllib.request.urlopen(url)
-        data = json.loads(resp.read().decode('utf'))
+        data = OrderedDict(json.loads(resp.read().decode('utf')))
         if 'error' in data.keys():
             return {'NoDataError': 'No data on this location'}
         else:
@@ -96,7 +96,7 @@ def isolate_name(street):
                 street = street[3:]
     return street
     
-def get_wiki_info(title, lang):
+def get_wiki_info(title):
     """This function retrieves information from the Wikipedia API.
     
     :param title: A title of a possible wikipedia page
@@ -117,17 +117,20 @@ def get_wiki_info(title, lang):
     >>> print(type(result))
     <class 'str'>
     """
-    wp.set_lang(lang)
+    wp.set_lang('es') # lang is hardcoded as i18n is usefulness 
+                      # except in Europe, but I don't have the time to
+                      # translate the app to other European countries.
+                      # OTOH, addresses in anglosaxon 
+                      # countries are really boring :-P
     
     try:
         info = wp.page(title)
         return info
     except:
-        msg = "<H2>We are sorry!</H2>\n"
-        msg += "<p>We failed to offer you this service.</p>\n"
-        msg += "<p>Return to the map and try it again.</p>"
-        result = gettext(msg)
-        return result
+        msg = "<H2>¡Lo sentimos!</H2>\n"
+        msg += "<p>Hemos fallado misserablemente al ofrecerte este servicio.</p>\n"
+        msg += "<p>Vuelve al mapa e inténtalo de nuevo.</p>"
+        return msg
 
 def parse_wiki_content(wikipage):
     """Function to parse the content of the Wikipedia article in a 
@@ -155,7 +158,7 @@ def parse_wiki_content(wikipage):
         if line.startswith('=') and line.endswith('='):
             h = int(line.count('=') / 2)
             line = line.replace("=", "") 
-            line = line.replace(gettext("Edit"), "") 
+            line = line.replace("Editar", "") 
             result += "<H{0}>{1}</H{0}>\n".format(h, line)
         else:
             result += "    <P>{0}</P>\n".format(line)

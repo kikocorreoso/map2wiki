@@ -63,10 +63,10 @@ html, body {
  <body onload="brython(1)">
   <div id="container">
    <div id="mapdiv"></div>
-   <a id="link" href="{{ url_for('about') }}">{{ _('About') }}</a>
+   <a id="link" href="{{ url_for('about') }}">Acerca de la aplicación</a>
    <form method="POST" action="{{ url_for('wiki') }}">
-    <input id="search" class="button" type="submit" name="submit" value="{{ _('Search wiki') }}">
-    <button id="getpos" class="button" type="button">{{ _('Get my position') }}</button>
+    <input id="search" class="button" type="submit" name="submit" value="Buscar en wikipedia">
+    <button id="getpos" class="button" type="button">Geolocalízame</button>
     <input id="inputlon" type="hidden" name=inputlon value=-3.7035> 
     <input id="inputlat" type="hidden" name=inputlat value=40.4171> 
    </form>

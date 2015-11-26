@@ -1,23 +1,15 @@
 from flask import Flask, render_template, request
-from flask.ext.babel import Babel, gettext
 
 from utils import (get_address, 
                    isolate_name, 
                    get_wiki_info,
                    parse_wiki_content)
-from config import LANGUAGES
 
 app = Flask(__name__)
-babel = Babel(app)
-
-@babel.localeselector
-def get_locale():
-    return 'fr' #return request.accept_languages.best_match(LANGUAGES.keys())
 
 @app.route('/')
 @app.route('/index')
 def index():
-    print(get_locale())
     lon = -3.7035
     lat = 40.4171
     zoom = 4
@@ -38,10 +30,6 @@ def about():
 
 @app.route('/wiki', methods = ['POST'])
 def wiki():
-    lang = get_locale()
-    print(lang)
-    if lang not in ['en','es','fr']:
-        lang = 'en'
     if request.method == 'POST':
         address = get_address(
             request.form['inputlon'],
@@ -49,7 +37,7 @@ def wiki():
         )
         if 'road' in address['address'].keys():
             title = isolate_name(address['address']['road'])
-            article = get_wiki_info(title, lang)
+            article = get_wiki_info(title)
             if isinstance(article, str):
                 result = article
             else:
@@ -66,25 +54,27 @@ def wiki():
                 result = parse_wiki_content(article)
             return render_template("wiki.html", 
                                    result = result,
-                                   address = address)
+                                   address = dict(address))
         elif address['NoDataError']:
             return render_template("wiki.html",
                                    result = "<h2>:-(</h2>",
-                                   address = address)
+                                   address = dict(address))
         elif address['UrlError']:
             return render_template("wiki.html",
-                                   result = gettext("<h2>It seems we "
-                                                    "cannot connect to "
-                                                    "some service."
-                                                    "</h2>"),
+                                   result = ("<h2>Parece que no "
+                                             "podemos conectar a "
+                                             "alguno de los servicios "
+                                             "que usa la aplicación."
+                                             "</h2>"),
                                    address = address)
         else:
             return render_template("wiki.html",
-                                   result = gettext("<h2>We don't know "
-                                                    "what happened."
-                                                    "</h2>"),
+                                   result = ("<h2>No sabemos qué ha "
+                                             "pasado. Lo sentimos en "
+                                             "máas profundo de nuestro "
+                                             "frágil corazón</h2>"),
                                    address = address)
     
     
 if __name__ == '__main__':
-    app.run(debug = True, port = 8001)
+    app.run(debug = True, port = 5000)
