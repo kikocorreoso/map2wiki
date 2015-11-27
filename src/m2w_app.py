@@ -47,7 +47,7 @@ def wiki():
                                    address = address)
         elif 'pedestrian' in address['address'].keys():
             title = isolate_name(address['address']['pedestrian'])
-            article = get_wiki_info(title, lang)
+            article = get_wiki_info(title)
             if isinstance(article, str):
                 result = article
             else:
@@ -71,7 +71,7 @@ def wiki():
             return render_template("wiki.html",
                                    result = ("<h2>No sabemos qué ha "
                                              "pasado. Lo sentimos en "
-                                             "máas profundo de nuestro "
+                                             "más profundo de nuestro "
                                              "frágil corazón</h2>"),
                                    address = address)
     

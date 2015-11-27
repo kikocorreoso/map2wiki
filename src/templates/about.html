@@ -1,7 +1,8 @@
 <html>
 
  <head>
-     <style>
+  <title>map2wiki | About</title>   
+  <style>
 
 #content {
 	font-family: Verdana, Geneva, sans-serif;
@@ -14,7 +15,7 @@
 #header {
 	margin: 1%;
 }
-     </style>
+  </style>
  </head>
 
  <body>
@@ -30,15 +31,33 @@
 		 
 		 <H1>Instrucciones</H1>
 		 <p>Puedes navegar por el mapa hasta la posición que desees.
-		 Lo suyo es que vauas hasta una calle que tenga un nombre con ciertos tintes históricos para poder obtener información sobre la misma.</p>
+		 Lo suyo es que vayas hasta una calle que tenga un nombre con ciertos tintes históricos para poder obtener información sobre la misma.</p>
 		 <p>Cuando el marcador esté localizado sobre la dirección sobre la que quieras conocer la información del personaje que le da nombre puedes pulsar sobre el botón <b>Buscar en Wikipedia</b>.</p>
 		 <p>De forma alternativa puedes pulsar en el botón <b>Geolocalízame</b> y el navegador intentará obtener tu posición y geolocalizarte. Si ha sido posible geolocalizarte puedes pulsar en el botón <b>Buscar en Wikipedia</b>.</p>
-		 <p>La aplicación intentará encontrar información en la Wikipedia a partir del nombre de la calle</p>
-		 <H1><a href="https://github.com/kikocorreoso/map2wiki#motivation" target="blank">Motivación</a></H1>
+		 <p>La aplicación intentará encontrar información en la Wikipedia a partir del nombre de la calle. El resultado no tiene por que ser muy preciso. Si, por ejemplo, estás en la calle del Pino igual había un señor que se llamaba Enrique Pino y era famoso pero lo más probable es que si hay una página sobre el pino (arbol) en la Wikipedia, el resultado que obtengas sea ese. Por otro lado, a veces las geocodificación reversa obtenida no es del todo precisa y puede llevarte a calles adyacentes, o darte información de un negocio, colegio, hospital,..., que está geolocalizado en esa calle.</p>
+		 
+         <H1><a href="https://github.com/kikocorreoso/map2wiki#motivation" target="blank">Motivación</a></H1>
 		 <p>El otro día, estaba esperando a un amigo en Juan Bravo (Madrid) y mientras esperaba me dio por pensar -No tengo ni idea de quien es Juan Bravo-... Y de aquellos polvos estos lodos.</p>
-		 <p>-¿Por qué no abrir el navegador e ir directamente a la Wikipedia?- pensará el inteligente visitante -por que de esa forma no hubiera aprendido nada sobre Nominatim, geocodificación reversa, la API de la Wikipedia, Flask, Openlayers, Brython, el infierno CSS,...-.</p>
-		 <H1>Internacionalización</H1>
-		 <p>La aplicación la internacionalicé usando Babel y Flask-Babel. Son una delicia de usar. Una vez internacionlizado me di cuenta de que las direcciones en los países anglosajones son extremadamente aburridas, la quinta avenida, calle Oxford,... No daba mucha chicha para el inglés. Lo hice, en parte, para francés y eso sería más interesante, pero como no tengo más tiempo y esto solo es una aplicación de prueba simple sin BBDD detrás no le he dedicado más tiempo al tema y he desecho algunos commits.</p>
+		 <p>-¿Por qué no abrir el navegador e ir directamente a la Wikipedia?- pensará el inteligente visitante -por que de esa forma no hubiera aprendido nada sobre Nominatim, geocodificación inversa, la API de la Wikipedia, Flask, Openlayers, Brython, el infierno CSS,...-.</p>
+		 
+         <H1>Internacionalización</H1>
+		 <p>La aplicación la internacionalicé usando Babel y Flask-Babel. Son una delicia de usar. Una vez internacionalizado me di cuenta que las direcciones en los países anglosajones son extremadamente aburridas, la quinta avenida, calle Oxford,... No daba mucha chicha para el inglés. Lo hice, en parte, para francés y eso sería más interesante, pero como no tengo más tiempo y esto solo es una aplicación de prueba simple sin BBDD detrás no le he dedicado más tiempo al tema y he desecho algunos commits.</p>
+         
+         <H1>¿Cómo funciona?</H1>
+         <p>
+          Se usan una serie de servicios muy interesantes y libres. 
+          Por una parte se usa la <a href="https://es.wikipedia.org/wiki/Geocodificaci%C3%B3n_inversa" target="blank">geocodificación inversa</a> ofrecida por el servicio <a href="http://wiki.openstreetmap.org/wiki/Nominatim" target="blank">Nominatim de OpenStreetMap</a>. Básicamente, a partir de unas coordenadas se obtiene una dirección (o algo que esté geolocalizado ahí o cerca).
+          Por otra parte se usa la API de la Wikipedia para extraer la información requerida.
+         </p>
+         <p>
+          Un poco más en detalle
+         </p>
+         <ul>
+          <li>Primero, sobre el mapa (<a href="http://openlayers.org/" target="blank">OpenLayers</a> + <a href="http://www.openstreetmap.org/" target="blank">OpenStreetMap</a>) se obtiene una posición. Openlayers se maneja con <a href="http://brython.info" target="blank">Brython (una implementación de Python 3 que corre en el navegador)</a> en lugar de con Javascript (Brython me resulta más pythónico que Javascript...). Gracias a Openlayers y Brython tenemos localizado un marcador en el centro del mapa y podemos extraer la posición sobre la que está localizada el marcador.</li>
+          <li>Alternativamente, podemos geolocalizarnos usando la API que ofrece el navegador para ello.</li>
+          <li>Una vez que estamos sobre la posición en la que queremos obtener información pulsamos al botón de buscar información en la Wikipedia. Flask se encarga de realizar toda la maquinaria de buscar en Nominatim y Wikipedia. Al pulsar sobre el botón de buscar en la Wikipedia le pasamos la posición a Flask y, ya dentro de Python y con las coordenadas del sitio, vamos primero a la API que ofrece Nominatim e intentamos obtener una dirección. Si estamos en medio del Sahara, seguramente no nos devuelva nada pero si estamos sobre una calle de un núcleo urbano debería ser capaz de devolvernos una dirección. Esa dirección puede ser 'Calle de Cervantes' o 'Avenida del Marqués de Python'. De esa calle extraemos la información interesante aislando solo la parte importante para que pueda usar la Wikipedia, en los casos anteriores 'Cervantes' o 'marqués de Python'. Con la dirección aislada vamos a la API de la wikipedia e intentamos buscar una página que concuerde, reformateamos un poco el resultado y se devuelve al navegador mediante Flask y Jinja2.</li>
+         </ul>
+         <p>Grosso modo, eso es todo.</p>
      </div>
 
  </body>

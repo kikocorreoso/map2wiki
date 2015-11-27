@@ -128,7 +128,7 @@ def get_wiki_info(title):
         return info
     except:
         msg = "<H2>¡Lo sentimos!</H2>\n"
-        msg += "<p>Hemos fallado misserablemente al ofrecerte este servicio.</p>\n"
+        msg += "<p>Hemos fallado miserablemente al ofrecerte este servicio.</p>\n"
         msg += "<p>Vuelve al mapa e inténtalo de nuevo.</p>"
         return msg
 
